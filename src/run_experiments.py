@@ -14,7 +14,18 @@ EXPERIMENTS = [
     {"model": "random_forest", "n_estimators": 50, "max_depth": 4},
     {"model": "random_forest", "n_estimators": 100, "max_depth": 6},
     {"model": "random_forest", "n_estimators": 200, "max_depth": 8},
-    # ... add 7 more dictionaries here ...
+    {"model": "random_forest","n_estimators": 100,"max_depth":4},
+    {"model":"random_forest","n_estimators":100,"max_depth":12},
+    {"model":"random_forest","n_estimators":300,"max_depth":8},
+    {
+        "model":"random_forest",
+        "n_estimators":200,
+        "max_depth":8,
+        "min_samples_leaf":10,
+    },
+    {"model": "logistic_regression", "C": 0.1},
+    {"model": "logistic_regression", "C": 1.0},
+    {"model": "logistic_regression", "C": 10.0},
 ]
 
 
@@ -22,10 +33,11 @@ def main():
     base = load_params()["train"]
     print(f"Running {len(EXPERIMENTS)} experiments...")
     for i, changes in enumerate(EXPERIMENTS, start=1):
-        # TODO S1.9: Build this run's settings: start from `base`, then apply `changes`.
-        # Then call train_and_log(...) with run_name=f"exp-{i:02d}".
-        # Hint: {**base, **changes} merges two dicts (right side wins).
-        pass
+        run_params = {**base, **changes}
+        train_and_log(run_params, run_name=f"exp-{i:02d}")
+
+    
+
     print("Done. Run `mlflow ui` and compare the runs.")
 
 
