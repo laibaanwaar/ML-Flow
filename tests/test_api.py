@@ -38,5 +38,6 @@ def test_missing_field_rejected():
 
 
 def test_invalid_category_rejected():
-    # TODO S2.5: Send a request with Contract="Ten years" and assert status 422.
-    pass
+    bad = {**GOOD, "Contract": "Ten years"}
+    response = client.post("/predict", json=bad)
+    assert response.status_code == 422
